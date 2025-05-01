@@ -1,4 +1,3 @@
-FROM ubuntu:latest
-LABEL authors="ghkdwnsdlr"
-
-ENTRYPOINT ["top", "-b"]
+FROM eclipse-temurin:17-jdk-alpine
+COPY ./build/libs/*SNAPSHOT.jar project.jar
+ENTRYPOINT ["java", "-jar","project.jar"]
