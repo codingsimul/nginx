@@ -40,6 +40,15 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Nginx Docker 이미지 생성
+        run: docker build -t nginx1 ./docker/nginx1
+
+      - name: Nginx Docker 이미지 태그
+        run: docker tag nginx1 ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
+
+      - name: Nginx Docker 이미지 ECR에 Push
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
+
       - name: Docker 이미지 생성
         run: docker build -t back1 .
 
@@ -61,3 +70,14 @@ jobs:
             docker rm back1 || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/back1:latest
             docker run -d --name back1 -p 8080:8080 ${{ steps.login-ecr.outputs.registry }}/back1:latest
+            
+            docker stop nginx1 || true
+            docker rm nginx1 || true
+            docker pull ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
+
+            docker run -d \
+              --name nginx1 \
+              -p 80:80 -p 443:443 \
+              -v /etc/letsencrypt:/etc/letsencrypt:ro \
+              --network bridge \  # 또는 back1과 같은 network
+              ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
