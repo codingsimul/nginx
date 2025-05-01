@@ -41,7 +41,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Nginx Docker 이미지 생성
-        run: docker build -t nginx1 ./docker/nginx1
+        run: docker build -t nginx1 ./nginx
 
       - name: Nginx Docker 이미지 태그
         run: docker tag nginx1 ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
