@@ -75,9 +75,4 @@ jobs:
             docker rm nginx1 || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
 
-            docker run -d \
-              --name nginx1 \
-              -p 80:80 -p 443:443 \
-              -v /etc/letsencrypt:/etc/letsencrypt:ro \
-              --network bridge \  # 또는 back1과 같은 network
-              ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
+            docker run -d --name nginx1 -p 80:80 -p 443:443 -v /etc/letsencrypt:/etc/letsencrypt:ro ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
