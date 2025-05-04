@@ -71,7 +71,7 @@ jobs:
             docker rm back1 || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/back1:latest
             docker run -d --name back1 --network app-network -p 8080:8080 ${{ steps.login-ecr.outputs.registry }}/back1:latest
-            
+                        docker run -d --name back1 --network app-network -p 8081:8080 ${{ steps.login-ecr.outputs.registry }}/back1:latest
             docker stop nginx1 || true
             docker rm nginx1 || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
