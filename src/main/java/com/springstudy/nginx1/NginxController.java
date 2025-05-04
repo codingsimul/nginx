@@ -9,7 +9,7 @@ public class NginxController {
 
     @GetMapping("/")
     public ResponseEntity<?> index() {
-        ResponseEntity<String> response = ResponseEntity.ok("Hello World");
+        ResponseEntity<String> response = ResponseEntity.ok("Hello Worlds");
         return response;
     }
 }
