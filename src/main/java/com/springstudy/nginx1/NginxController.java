@@ -10,6 +10,7 @@ public class NginxController {
     @GetMapping("/")
     public ResponseEntity<?> index() {
         ResponseEntity<String> response = ResponseEntity.ok("Hello World");
+        System.out.println("💡 Hello from nginx!");
         return response;
     }
 }
