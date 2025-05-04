@@ -75,5 +75,5 @@ jobs:
             docker stop nginx1 || true
             docker rm nginx1 || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
-
-            docker run -d --name nginx1 --network app-network -p 80:80 -p 443:443 -v /etc/letsencrypt:/etc/letsencrypt:ro -v /etc/nginx:/etc/nginx:ro ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
+            docker run -d --name nginx1 --network app-network -p 80:80 -p 443:443 -v /etc/letsencrypt:/etc/letsencrypt:ro ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
+# docker run -d --name nginx1 --network app-network -p 80:80 -p 443:443 -v /etc/letsencrypt:/etc/letsencrypt:ro -v /etc/nginx:/etc/nginx:ro ${{ steps.login-ecr.outputs.registry }}/nginx1:latest
